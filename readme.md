@@ -28,11 +28,11 @@ CSS3: Estilização do botão de interface.
 📂 Estrutura de Arquivos
 Plaintext
 
-/extensao-automacao
-├── manifest.json # Configurações e permissões da extensão
-├── extract.js # Script que roda na GetYourGuide (Captura)
-├── fill.js # Script que roda na Ingresso com Desconto (Preenchimento)
-└── logo.png # Logo exibida no botão flutuante
+/extensao-automacao </br>
+├── manifest.json # Configurações e permissões da extensão</br>
+├── extract.js # Script que roda na GetYourGuide (Captura)</br>
+├── fill.js # Script que roda na Ingresso com Desconto (Preenchimento)</br>
+└── logo.png # Logo exibida no botão flutuante</br>
 
 🚀 Como Instalar
 Faça o download ou clone este repositório.
@@ -58,3 +58,4 @@ Os campos destacados serão preenchidos automaticamente.
 Persistência: O script de preenchimento possui um mecanismo de segurança que tenta reinjetar os dados por 10 segundos caso o site tente limpar o formulário durante o carregamento.
 
 Erro de Contexto: Se a extensão for atualizada, é necessário fechar e abrir a aba do sistema de vendas novamente para evitar o erro Extension context invalidated.
+
