@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Integrador GetYourGuide -> Ingresso",
+  "version": "1.0",
+  "description": "Automatiza a cópia de dados da GetYourGuide para a Ingresso com Desconto.",
+  "permissions": ["storage", "activeTab"],
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["logo.png"],
+      "matches": ["https://supplier.getyourguide.com/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://supplier.getyourguide.com/bookings/*"],
+      "js": ["extract.js"]
+    },
+    {
+      "matches": ["https://www.ingressocomdesconto.com.br/adm/paginas/cadastro_vendas.asp*"],
+      "js": ["fill.js"]
+    }
+  ]
+}
