@@ -1,68 +1,36 @@
-function preencherFormulario() {
-    // Verifica se a extensão ainda é válida para evitar o erro de contexto
-    if (!chrome.runtime?.id) return;
+function preencherCamposVenda(dados) {
+    if (!dados) return;
+    const nomesCampos = ['sAge_Nome', 'sAge_Email', 'sAge_CPF', '_sVen_Cartao'];
+    const valores = [dados.nome, dados.email, dados.gyg, dados.gyg];
 
-    chrome.storage.local.get("dadosPedido", (result) => {
-        if (!result.dadosPedido) return;
-        
-        const d = result.dadosPedido;
-
-        // Lista de campos e seus respectivos nomes técnicos no HTML
-        const campos = [
-            { id: 'nome', valor: d.nome },
-            { id: 'email', valor: d.email },
-            { id: 'cpf', valor: d.gyg },
-            { id: '_sVen_Cartao', valor: d.gyg } // Campo 15 confirmado
-        ];
-
-        campos.forEach(campo => {
-            const el = document.getElementsByName(campo.id)[0];
-            if (el && (el.value === "" || el.value !== campo.valor)) {
-                el.value = campo.valor;
-                // Dispara um evento de 'input' para o site entender que houve mudança
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-            }
-        });
+    nomesCampos.forEach((nome, i) => {
+        const el = document.getElementsByName(nome)[0];
+        if (el) {
+            el.value = valores[i];
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+            el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
     });
 }
 
-// Executa repetidamente a cada 1 segundo para garantir que os dados não sumam
-const intervalId = setInterval(preencherFormulario, 1000);
+// Escuta o comando vindo do background.js (SEM F5)
+chrome.runtime.onMessage.addListener((request) => {
+    if (request.acao === "DADOS_PRONTOS") {
+        preencherCamposVenda(request.dados);
+    }
+});
 
-// Para economizar memória, para de tentar preencher após 10 segundos
-setTimeout(() => clearInterval(intervalId), 10000);
+// Preenche se a página for aberta depois
+chrome.storage.local.get("dadosPedido", (result) => {
+    if (result.dadosPedido) preencherCamposVenda(result.dadosPedido);
+});
 
-// Também executa quando você volta para a aba
-window.addEventListener('focus', preencherFormulario);function preencherCampos() {
-    if (!chrome.runtime?.id) return;
-
-    chrome.storage.local.get("dadosPedido", (result) => {
-        if (!result.dadosPedido) return;
-        const d = result.dadosPedido;
-
-        // Mapeamento baseado nos prints do código-fonte
-        const campos = [
-            { nome: 'sAge_Nome', valor: d.nome },      // Campo 2
-            { nome: 'sAge_Email', valor: d.email },    // Campo 4
-            { nome: 'sAge_CPF', valor: d.gyg },        // Campo 3
-            { nome: '_sVen_Cartao', valor: d.gyg }     // Campo 15
-        ];
-
-        campos.forEach(c => {
-            const el = document.getElementsByName(c.nome)[0];
-            if (el) {
-                el.value = c.valor;
-                el.dispatchEvent(new Event('input', { bubbles: true }));
-                el.dispatchEvent(new Event('change', { bubbles: true }));
-            }
-        });
-    });
+// Botão de e-mail
+if (!document.getElementById('btn-abrir-mail')) {
+    const btn = document.createElement("button");
+    btn.id = 'btn-abrir-mail';
+    btn.innerText = "📩 Abrir Webmail Locaweb";
+    btn.style = "position:fixed;bottom:20px;right:20px;z-index:9999;padding:15px;background:#612d87;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:bold;";
+    btn.onclick = () => window.open("https://webmail-seguro.com.br/?_task=mail&_action=compose", "_blank");
+    document.body.appendChild(btn);
 }
-
-// Tenta preencher ao carregar e ao focar na aba
-preencherCampos();
-window.addEventListener('focus', preencherCampos);
-
-// Executa um pequeno loop para garantir que o site não apague os dados
-const seguranca = setInterval(preencherCampos, 2000);
-setTimeout(() => clearInterval(seguranca), 10000);
