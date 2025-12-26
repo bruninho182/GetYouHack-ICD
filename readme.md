@@ -1,60 +1,57 @@
-🚀 Integrador GetYourGuide -> Ingresso com Desconto
-Esta é uma extensão personalizada para o Google Chrome desenvolvida para automatizar o processo de cadastro de vendas. Ela extrai dados de reserva da plataforma GetYourGuide e preenche automaticamente o formulário na plataforma Ingresso com Desconto.
+🚀 Integrador de Vendas: GetYourGuide -> Ingresso com Desconto
+Este projeto é uma Extensão de Chrome desenvolvida para otimizar e automatizar o fluxo de trabalho entre a plataforma de fornecedores da GetYourGuide, o sistema de vendas da Ingresso com Desconto e o Webmail Locaweb.
 
 Por: Bruno Ferreira
 
-📋 Funcionalidades
-Extração Automática: Captura o Nome do Cliente, E-mail e o Código da Reserva (GYG) com um único clique.
 
-Preenchimento Inteligente: Injeta os dados nos campos específicos:
+🎥 Como Funciona (Fluxo Automatizado)
+Extração: Na página de reserva da GetYourGuide, um botão personalizado com a logo da empresa captura o Nome, E-mail e Código GYG.
 
-Campo 2 (Nome): Preenche o campo sAge_Nome.
+Comunicação Instantânea: Através de um Service Worker (Background Script), os dados são enviados para a aba de vendas em tempo real, sem necessidade de atualizar a página (F5).
 
-Campo 3 (CPF/Passaporte): Preenche o campo sAge_CPF com o código GYG.
+Preenchimento: O sistema de vendas recebe os dados e preenche automaticamente os campos de Nome, E-mail, CPF e CV.
 
-Campo 4 (E-mail): Preenche o campo sAge_Email.
-
-Campo 15 (CV): Preenche o campo \_sVen_Cartao com o código GYG.
-
-Interface Amigável: Adiciona um botão flutuante personalizado com a logo da empresa na página da GetYourGuide.
+E-mail Automático: Um botão flutuante permite abrir o Webmail Locaweb já com o destinatário, assunto e corpo do e-mail (em inglês) preenchidos, preservando a assinatura original.
 
 🛠️ Tecnologias Utilizadas
-JavaScript (ES6+): Lógica de extração e manipulação de DOM.
+JavaScript (ES6+): Lógica principal e manipulação de DOM.
 
-Chrome Extension API (Manifest V3): Arquitetura da extensão.
+Chrome Extension API (Manifest V3): Utilização de Service Workers, Storage API e Messaging API.
 
-CSS3: Estilização do botão de interface.
+CSS3: Estilização de interfaces flutuantes e botões personalizados.
 
-📂 Estrutura de Arquivos
-Plaintext
+📂 Estrutura do Projeto
+manifest.json: Configurações globais, permissões e mapeamento de scripts.
 
-/extensao-automacao
-├── manifest.json # Configurações e permissões da extensão
-├── extract.js # Script que roda na GetYourGuide (Captura)
-├── fill.js # Script que roda na Ingresso com Desconto (Preenchimento)
-└── logo.png # Logo exibida no botão flutuante
+background.js: Central de mensagens que permite a comunicação entre abas sem recarregamento.
+
+extract.js: Script injetado na GetYourGuide para captura de dados.
+
+fill.js: Script injetado na Ingresso com Desconto para preenchimento automático.
+
+mail.js: Script injetado no Webmail para automação da escrita do e-mail.
+
+logo.png: Identidade visual utilizada na interface da extensão.
 
 🚀 Como Instalar
 Faça o download ou clone este repositório.
 
-Abra o Google Chrome e acesse chrome://extensions/.
+No Google Chrome, acesse chrome://extensions/.
 
-No canto superior direito, ative o Modo do desenvolvedor.
+Ative o Modo do desenvolvedor (canto superior direito).
 
-Clique no botão Carregar sem compactação.
+Clique em Carregar sem compactação e selecione a pasta do projeto.
 
-Selecione a pasta onde os arquivos foram salvos.
+📖 Documentação de Campos
+A extensão monitora e interage com os seguintes IDs/Names:
 
-📖 Modo de Uso
-Acesse a página de uma reserva específica na GetYourGuide.
+Nome do Cliente: sAge_Nome
 
-Clique no botão COPIAR PARA INGRESSO que aparecerá no canto superior direito.
+E-mail: sAge_Email
 
-Acesse (ou atualize) a página de Cadastro de Vendas.
+Código GYG: sAge_CPF e _sVen_Cartao (campo CV)
 
-Os campos destacados serão preenchidos automaticamente.
+Webmail: Campos _to, _subject e o editor de texto via iframe.
 
-⚠️ Observações Técnicas
-Persistência: O script de preenchimento possui um mecanismo de segurança que tenta reinjetar os dados por 10 segundos caso o site tente limpar o formulário durante o carregamento.
-
-Erro de Contexto: Se a extensão for atualizada, é necessário fechar e abrir a aba do sistema de vendas novamente para evitar o erro Extension context invalidated.
+📝 Licença
+Este projeto foi desenvolvido para uso interno e automação de processos específicos.
