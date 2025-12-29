@@ -1,5 +1,5 @@
 🚀 Integrador de Vendas: GetYourGuide -> Ingresso com Desconto -> Webmail
-Este projeto é uma Extensão de Google Chrome/Microsoft Edge/Opera GX desenvolvida para otimizar e automatizar o fluxo de trabalho entre a plataforma de fornecedores da GetYourGuide, o sistema de vendas da Ingresso com Desconto e o Webmail Locaweb.
+Este projeto é uma Extensão de Google Chrome/Microsoft Edge/Opera GX/Brave/FireFox desenvolvida para otimizar e automatizar o fluxo de trabalho entre a plataforma de fornecedores da GetYourGuide, o sistema de vendas da Ingresso com Desconto e o Webmail Locaweb.
 
 Por: Bruno Ferreira
 ![Preview](/botao1.jpg)
@@ -67,6 +67,7 @@ Por: Bruno Ferreira
 📝 Licença
 - Este projeto foi desenvolvido para uso interno e automação de processos específicos.
 <br>
+
 
 
 
