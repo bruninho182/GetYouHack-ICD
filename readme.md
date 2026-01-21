@@ -22,6 +22,8 @@ Identificação no CV: O campo de cartão (CV) é preenchido automaticamente no 
 
 Zero F5: Comunicação em tempo real entre abas via Background Service Worker.
 
+---
+
 ## 🎥 Como Funciona (Fluxo Automatizado)
 
 1.  **Extração**: Na página de reserva da GetYourGuide, um botão personalizado com a logo da empresa captura instantaneamente o Nome do Passageiro, E-mail temporário e Código GYG.
@@ -78,4 +80,5 @@ A extensão monitora e interage com os seguintes elementos técnicos:
 
 ## 📝 Licença
 Este projeto foi desenvolvido para uso interno e automação de processos específicos da operação de vendas.
+
 
